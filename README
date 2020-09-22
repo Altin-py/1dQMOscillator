@@ -1,0 +1,5 @@
+""""""""""""""""""""""""""
+Solution of One Schrödinger Equation (SOSE)
+"""""""""""""""""""""""""
+
+Package contains the full solution of the one dimensional SEQ. Example potentials are used and the solutions are plotted.
