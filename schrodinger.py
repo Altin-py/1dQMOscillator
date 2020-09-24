@@ -1,8 +1,5 @@
-#!/usr/bin/python3: 
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 """
-Editor de Spyder
-
-Este es un archivo temporal.
+Solves Schrödinger equation for a one dimensional time independent potential.
 """
 

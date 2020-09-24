@@ -4,14 +4,16 @@ Calculates the uncertainty of a variable (multiplicative operator) in a 1D
 discretized quantum system.
 """
 import numpy as np
-
+NO HE TENIDO EN CUENTA QUE QUIERO CALCULARLO TODO PARA CADA POSICION Y PARA
+CADA AUTOESTADO
 
 def expectationval(aa, bb, delta, s, n):
-    """Calculates the expectation value of the discretized operator.
+    """Calculates the expectation value of the discretized operator in each
+    eigenstate of the system.
 
     Args:
         aa: Vector of the discretized values of the operator. Shape: (n,)
-        bb: Matrix of the eigenstates of the system. Shape: (s,n), where s is
+        bb: Matrix of the eigenstates of the system. Shape: (n,s), where s is
         the number of eigenstates.
         delta: Distance between the discretized points. Scalar.
         s: Number of eigenstates. Scalar.
@@ -25,20 +27,22 @@ def expectationval(aa, bb, delta, s, n):
     """
     exp=0.0
     for ii in range(n):
-        exp+=aa[ii]*bb[s, ii]
+        exp+=aa[ii]*bb[ii, s]
     exp*=delta
     return exp
 
 
 def uncertainty(aa, bb, delta, s, n):
-    """Calculates the uncertainty of a multiplicative operator in a 1D
-    discretized quantum system.
+    """Calculates the uncertainty of a multiplicative operator in each
+    eigenstate of a 1D discretized quantum system.
 
     Args:
         aa: Vector of the discretized values of the operator. Shape: (n,)
-        bb: Matrix of the eigenstates of the system. Shape: (s,n), where s is
+        bb: Matrix of the eigenstates of the system. Shape: (n,s), where s is
         the number of eigenstates.
         delta: Distance between the discretized points. Scalar.
+        s: Number of eigenstates. Scalar.
+        n: Number of discretized points. Scalar.
 
     Returns:
         sigma: Uncertainty of the operator, defined as the square root of the
