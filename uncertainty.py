@@ -19,17 +19,17 @@ def expectationval(aa, bb, delta, s, n):
         n: Number of discretized points. Scalar.
 
     Returns:
-        exp: Matrix of the expectation values of the operator in each position
-        (rows) and in each eigenstate (columns). Shape: (n, s)
+        exp: Vector of the expectation values of the operator in each
+        eigenstate. Shape: (s,)
 
     Raises:
 
     """
-    exp=np.zeros((n, s))
+    exp=np.zeros(s)
     for jj in range(s):
         for ii in range(n):
-            exp[ii,jj]+=aa[ii]*bb[ii, jj]
-        exp[ii,jj]*=delta
+            exp[jj]+=bb[ii, jj]*aa[ii]*bb[ii, jj]
+        exp[jj]*=delta
     return exp
 
 
@@ -46,9 +46,10 @@ def uncertainty(aa, bb, delta, s, n):
         n: Number of discretized points. Scalar.
 
     Returns:
-        sigma: Matrix of the uncertainty values of the operator, defined as the
-        square root of the expectation value of the squared operator minus the
-        squared expectation value of the operator itself. Shape: (n, s)
+        sigma: Vector of the uncertainty values of the operator in each
+        eigenstate, defined as the square root of the expectation value of the
+        squared operator minus the squared expectation value of the operator
+        itself. Shape: (s,)
 
     Raises:
 
