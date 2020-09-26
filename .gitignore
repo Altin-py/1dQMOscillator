@@ -7,4 +7,5 @@ POT_HARMONISCH_SINGLE.inp
 POT_UNENDLICH_TIEF.inp
 .ipynb_checkpoints/
 testread.ipynb
+__pycache__/
 

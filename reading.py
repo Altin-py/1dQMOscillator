@@ -20,18 +20,22 @@ def reading(directory):
     Return: mass, diskr, eigv, ansatz, numb, inpo
 
         Variables neccessary for further process
+        numb: number of interpolation points
+        ansatz: Ansatz for the interpolation
+        eigv: first and last eigv
+        diskr: Diskrete points used for interpolation
     """
     file = os.path.join(directory, "schrodinger.inp")
     with open(file) as fp:
         data = fp.read().splitlines()
     mass = data[0]
     mass = np.asfarray(mass, float)
-    diskr = data[1].split()     #array mit Daten für Diskret
+    diskr = data[1].split()
     diskr = np.asfarray(diskr, float)
-    eigv = data[2].split()      #first and last eigv
+    eigv = data[2].split()
     eigv = np.asfarray(eigv, float)
-    ansatz = data[3]    #Interpolationsansatz
-    numb = data[4].split()      #anzahl interpolationspunkte
+    ansatz = data[3]
+    numb = data[4].split()
     numb = numb[0]
     numb = int(numb)
     inpo = data[5:5+numb]
@@ -39,4 +43,4 @@ def reading(directory):
     for ii in range(numb):
         for jj in range(2):
             matinpo[ii, jj] = np.float(inpo[ii].split()[jj])
-    return mass, diskr, eigv, ansatz, numb, matinpo
+    return mass, diskr, eigv, ansatz, matinpo
