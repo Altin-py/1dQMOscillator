@@ -26,7 +26,7 @@ def write_wavefuncs(aa, bb,  filename="wavefuncs.dat"):
         bb: Matrix with all the eigenfuncions at each postion. Shape: (n, s)
     '''
     #First we create a matrix as aa as first column and then the bb matrix
-    info=np.append(aa, bb, axis=1)
+    info=np.append(aa.transpose(), bb, axis=1)
     np.savetxt(filename, info)
 
 
@@ -42,6 +42,6 @@ def write_expvalues(aa, bb , filename="expvalues.dat"):
         bb: Vector of the uncertainty values of the operator associated with
         each eigenstate. Shape: (s,)
     '''
-    info=np.append(aa.transpose, bb.transpose, axis=1)
+    info=np.append(aa.transpose(), bb.transpose(), axis=1)
     np.savetxt(filename, info)
 
