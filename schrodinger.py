@@ -5,10 +5,10 @@ Solves Schrödinger equation for a one dimensional time independent potential.
 import sys
 import os.path
 import argparse
-import reading as reading
-import solver as solver
-import uncertainty as uncertainty
-import writing as writing
+import reading
+import solver
+import uncertainty
+import writing
 import interpolate as interpol
 import numpy as np
 
