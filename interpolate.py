@@ -4,12 +4,19 @@
 Reads out Data from reading.py and uses it to
 interpolate the potentials
 """
+import os.path
 import numpy as np
 from scipy.interpolate import interp1d, CubicSpline, BarycentricInterpolator
 import reading
 def interpolate(directory):
     """
     Function to interpolate the data with chosen nethod
+
+    args:
+        directory where the potential.dat is supposed to be saved and where
+        schrodinger.inp is
+    return:
+        nothing but savees the plotable data in x,y format
     """
     mass, diskr, eigv, ansatz, matinpo = reading.reading(directory)
 
@@ -24,5 +31,7 @@ def interpolate(directory):
     if ansatz == 'cspline':
         yinter = CubicSpline(matinpo[:, 0], matinpo[:, 1], bc_type='natural')
         ypot = yinter(xdat)
-
-    return xdat, ypot
+    matrix = np.stack([xdat, ypot], axis=1)
+    potential = os.path.join(directory, "potential.dat")
+    np.savetxt(potential, matrix)
+    return
