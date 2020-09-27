@@ -5,11 +5,11 @@ Solves Schrödinger equation for a one dimensional time independent potential.
 import sys
 import os.path
 import argparse
-import SOSE.reading as reading
-import SOSE.solver as solver
-import SOSE.uncertainty as uncertainty
-import SOSE.writing as writing
-import SOSE.interpolate as interpol
+import reading as reading
+import solver as solver
+import uncertainty as uncertainty
+import writing as writing
+import interpolate as interpol
 import numpy as np
 
 _DESCRIPTION = '''Solves the Schrödinger equation for a discretized one
@@ -30,7 +30,7 @@ def main():
         sys.exit(1)
 
     interpol.interpolate(directory)
-    delta = (diskr[2] - diskr[1]) / diskr[3]
+    delta = (diskr[1] - diskr[0]) / diskr[2]
     pos = np.loadtxt("potential.dat")[0]
     ham = solver.hamiltonian(mass, delta)
     eigval, eigvec = solver.diagonalize(ham)

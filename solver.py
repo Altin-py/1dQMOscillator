@@ -18,7 +18,7 @@ external potential (second column) for each value of the discretized positions
         ham: Hamiltonian matrix (dim, dim) of the discretized system.
     """
     pot = np.loadtxt("potential.dat")[1]
-    dim = pot.shape()
+    dim = pot.shape[0]
     const = 1 / (mass * delta * delta)
     ham = np.zeros((dim, dim))
     for ii in range(dim-1):
