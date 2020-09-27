@@ -5,11 +5,11 @@ Solves Schrödinger equation for a one dimensional time independent potential.
 import sys
 import os.path
 import argparse
-import SOSE.reading as reading
-import SOSE.solver as solver
-import SOSE.uncertainty as uncertainty
-import SOSE.writing as writing
-import SOSE.interpolate as interpol
+import reading as reading
+import solver as solver
+import uncertainty as uncertainty
+import writing as writing
+import interpolate as interpol
 import numpy as np
 
 _DESCRIPTION = '''Solves the Schrödinger equation for a discretized one
@@ -23,22 +23,24 @@ def main():
     args = _parse_arguments()
     directory = args.directory
     try:
-        mass, diskr, eigv, ansatz, matinpo = reading.reading(args.directory)
-    except OSError as exc:
-        print("Failed to read input file '{}'".format(_INPUT_FILE))
+        mass, diskr, num_eigv, ansatz, matinpo = reading.reading(args.directory)
+    except FileNotFoundError as exc:
+        print("Not found a file called '{}' in the folder".format(_INPUT_FILE))
         print("Exception raised: {}".format(exc))
         sys.exit(1)
 
     interpol.interpolate(directory)
-    delta = (diskr[2] - diskr[1]) / diskr[3]
-    pos = np.loadtxt("potential.dat")[0]
+    delta = (diskr[1] - diskr[0]) / diskr[2]
+    first_eig = np.int(num_eigv[0]-1)
+    last_eig = int(num_eigv[1])
+    pos = np.loadtxt("potential.dat")[:,0]
     ham = solver.hamiltonian(mass, delta)
     eigval, eigvec = solver.diagonalize(ham)
-    writing.write_energies(eigval)
-    writing.write_wavefuncs(pos, eigvec)
-    exp_val = uncertainty.expectationval(pos, eigvec, delta)
-    sigma = uncertainty.uncertainty(pos, eigvec, delta)
-    writing.write_expvalues(exp_val, sigma)
+    writing.write_energies(eigval[first_eig:last_eig])
+    writing.write_wavefuncs(pos, eigvec[:,first_eig:last_eig])
+    exp_val = uncertainty.expectationval(pos, eigvec[:,first_eig:last_eig], delta)
+    sigma = uncertainty.uncertainty(pos, eigvec[:,first_eig:last_eig], delta)
+    writing.write_expvalues(exp_val[first_eig:last_eig], sigma[first_eig:last_eig])
 
 
 def _parse_arguments():

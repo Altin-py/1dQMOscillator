@@ -1,1 +1,10 @@
-hello world
+.ipynb_checkpoints/
+.spyproject/
+__pycache__/
+schroedinger/POT_ASYM/potential.dat
+schroedinger/POT_ENDLICH_TIEF/potential.dat
+schroedinger/POT_HARMONISCH_DOUBLE_KUBISCH/potential.dat
+schroedinger/POT_HARMONISCH_DOUBLE_LINEAR/potential.dat
+schroedinger/POT_HARMONISCH_SINGLE/potential.dat
+schroedinger/POT_UNENDLICH_TIEF/potential.dat
+testread.ipynb

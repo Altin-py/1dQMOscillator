@@ -23,8 +23,8 @@ def expectationval(aa, bb, delta):
     Raises:
 
     """
-    num_eig = bb.shape(1)
-    dim = bb.shape(0)
+    num_eig = bb.shape[1]
+    dim = bb.shape[0]
     exp = np.zeros(num_eig)
     for jj in range(num_eig):
         for ii in range(dim):
