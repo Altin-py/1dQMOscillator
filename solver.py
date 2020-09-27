@@ -5,24 +5,26 @@ import scipy.linalg as linalg
 import numpy as np
 
 
-def hamiltonian(mass, delta, pot):
+def hamiltonian(mass, delta):
     """Construct the Hamiltonian for a discretized one dimensional
-quandum system.
-
+quandum system. It requires a file ("potential.dat") with the values of the
+external potential (second column) for each value of the discretized positions
+(first column).
     Args:
         mass: Mass of the system. Scalar.
         delta: Distance between the discretized points. Scalar.
-        pot: Vector of the values of the potential on each point. Shape(n,)
 
     Returns:
-        ham: Hamiltonian matrix (n, n) of the discretized system.
+        ham: Hamiltonian matrix (dim, dim) of the discretized system.
     """
-    a = 1 / (mass * delta * delta)
-    ham=np.zeros((n,n))
-    for ii in range(n-1):
-        ham[ii,ii]=a + pot[ii]
-        ham[ii,ii+1]=ham[ii+1,ii]=-0.5 * a
-    ham[n-1,n-1]=a + pot[n-1]
+    pot = np.loadtxt("potential.dat")[1]
+    dim = pot.shape()
+    const = 1 / (mass * delta * delta)
+    ham = np.zeros((dim, dim))
+    for ii in range(dim-1):
+        ham[ii, ii] = const + pot[ii]
+        ham[ii, ii+1] = ham[ii+1, ii] = -0.5 * const
+    ham[dim-1, dim-1] = const + pot[dim-1]
     return ham
 
 
@@ -31,16 +33,16 @@ def diagonalize(aa):
     """Diagonalizes a complex hermitian or real symmetrical matrix.
 
     Args:
-        aa: Matrix to be diagonalized. Shape: (n, n)
+        aa: Matrix to be diagonalized. Shape: (dim, dim)
 
     Returns:
         eigval: Vector (s,) with the unordered eigenvalues of the matrix aa.
-        eigvec: Matrix (n, s) whose column eigvec[:,i] correspond to the
+        eigvec: Matrix (dim, s) whose column eigvec[:,i] correspond to the
         eigenvector associated to the eigenvalue eigval[i].
 
     Raises:
-        numpy.linalg.LinAlgError: if the eigenvalue computation does not
+        scipy.linalg.LinAlgError: if the eigenvalue computation does not
         converge.
     """
-    eigval, eigvec=linalg.eigh(aa)
+    eigval, eigvec = linalg.eigh(aa)
     return eigval, eigvec
