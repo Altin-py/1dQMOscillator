@@ -11,6 +11,7 @@ import uncertainty
 import writing
 import interpolate as interpol
 import numpy as np
+import plotter
 
 _DESCRIPTION = '''Solves the Schrödinger equation for a discretized one
 dimensional quantum system. It requires an input file "schrodinger.inp",
@@ -34,7 +35,7 @@ def main():
     writing.write_potential(pos, pot)
     delta = (diskr[1] - diskr[0]) / diskr[2]
     first_eig = np.int(num_eigv[0]-1)
-    last_eig = int(num_eigv[1])
+    last_eig = np.int(num_eigv[1])
     ham = solver.hamiltonian(mass, delta)
     eigval, eigvec = solver.diagonalize(ham)
     writing.write_energies(eigval[first_eig:last_eig])
@@ -42,6 +43,8 @@ def main():
     exp_val = uncertainty.expectationval(pos, eigvec[:,first_eig:last_eig], delta)
     sigma = uncertainty.uncertainty(pos, eigvec[:,first_eig:last_eig], delta)
     writing.write_expvalues(exp_val[first_eig:last_eig], sigma[first_eig:last_eig])
+
+    plotter.plotter(eigv, args.directory)
 
 
 def _parse_arguments():

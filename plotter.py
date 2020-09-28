@@ -6,23 +6,18 @@ Plots the wavefunctions and the potentials from the written files
 import os.path
 import numpy as np
 import matplotlib.pyplot as plt
-import reading
-import interpolate
 
 
 #def plotter(directory='schroedinger/POT_ASYM/', xmin = -10, xmax = 10, ymin = -10, ymax = 10 ):
-def plotter(directory='schroedinger/POT_HARMONISCH_SINGLE//'):
+def plotter(eigv, directory):
     """
     Plots.
     """
-    mass, diskr, eigv, ansatz, matinpo = reading.reading(directory)
 
     prefactor = 2.5
 
     firsteigv = eigv[0]
     lasteigv = eigv[1]
-
-    interpolate.interpolate(directory)
 
 
     potpath = os.path.join(directory, 'potential.dat')
@@ -48,5 +43,5 @@ def plotter(directory='schroedinger/POT_HARMONISCH_SINGLE//'):
     for xx in range(np.int(firsteigv), np.int(lasteigv)+1):
         plt.plot(wavefunct[:,0],prefactor*wavefunct[:,xx]+energies[xx-np.int(firsteigv)])
 
-    return plt.show()
+    plt.save("plot.png")
 

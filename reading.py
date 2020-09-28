@@ -6,7 +6,7 @@ reads out all the variables for further access
 """
 import numpy as np
 
-# import numpy as np
+
 def reading(file):
 
     """
