@@ -4,9 +4,10 @@
 Given the path of the schrodinger.inp
 reads out all the variables for further access
 """
-import os.path
 import numpy as np
-def reading(directory):
+
+
+def reading(file):
     """
     Reads input potentialextracts variables
 
@@ -24,7 +25,6 @@ def reading(directory):
         diskr: Diskrete points used for interpolation
         diskr[0]=xmin, diskr[1]=xmax, diskr[2]=npoint
     """
-    file = os.path.join(directory, "schrodinger.inp")
     with open(file) as fp:
         data = fp.read().splitlines()
     mass = data[0]

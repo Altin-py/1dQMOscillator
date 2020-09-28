@@ -5,10 +5,10 @@ Solves Schrödinger equation for a one dimensional time independent potential.
 import sys
 import os.path
 import argparse
-import reading as reading
-import solver as solver
-import uncertainty as uncertainty
-import writing as writing
+import reading
+import solver
+import uncertainty
+import writing
 import interpolate as interpol
 import numpy as np
 
@@ -21,19 +21,20 @@ _INPUT_FILE = 'schrodinger.inp'
 def main():
     '''Main driver routine.'''
     args = _parse_arguments()
-    directory = args.directory
     try:
-        mass, diskr, num_eigv, ansatz, matinpo = reading.reading(args.directory)
+        file = os.path.join(args.directory, "schrodinger.inp")
+        mass, diskr, num_eigv, ansatz, matinpo = reading.reading(file)
     except FileNotFoundError as exc:
         print("Not found a file called '{}' in the folder".format(_INPUT_FILE))
         print("Exception raised: {}".format(exc))
         sys.exit(1)
 
-    interpol.interpolate(directory)
+    pot = interpol.interpolate(diskr, ansatz, matinpo)[:,1]
+    pos = interpol.interpolate(diskr, ansatz, matinpo)[:,0]
+    writing.write_potential(pos, pot)
     delta = (diskr[1] - diskr[0]) / diskr[2]
     first_eig = np.int(num_eigv[0]-1)
     last_eig = int(num_eigv[1])
-    pos = np.loadtxt("potential.dat")[:,0]
     ham = solver.hamiltonian(mass, delta)
     eigval, eigvec = solver.diagonalize(ham)
     writing.write_energies(eigval[first_eig:last_eig])
