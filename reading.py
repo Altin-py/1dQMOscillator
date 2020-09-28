@@ -48,3 +48,19 @@ def reading(file):
         for jj in range(2):
             matinpo[ii, jj] = np.float(inpo[ii].split()[jj])
     return mass, diskr, eigv, ansatz, matinpo
+
+
+def read_test_output_pot(file):
+    """
+
+    """
+    discr_pot = np.loadtxt(file)[:,1]
+    return discr_pot
+
+
+def read_test_output_eig(file):
+    """
+
+    """
+    eigval = np.loadtxt(file)
+    return eigval

@@ -26,4 +26,12 @@ schroedinger/POT_HARMONISCH_SINGLE/wavefuncs.dat
 schroedinger/POT_UNENDLICH_TIEF/energies.dat
 schroedinger/POT_UNENDLICH_TIEF/expvalues.dat
 schroedinger/POT_UNENDLICH_TIEF/wavefuncs.dat
+.cache/
+schroedinger/POT_ASYM/plot.png
+schroedinger/POT_ENDLICH_TIEF/plot.png
+schroedinger/POT_HARMONISCH_DOUBLE_KUBISCH/plot.png
+schroedinger/POT_HARMONISCH_DOUBLE_LINEAR/plot.png
+schroedinger/POT_HARMONISCH_SINGLE/plot.png
+schroedinger/POT_UNENDLICH_TIEF/plot.png
+
 

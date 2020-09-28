@@ -44,7 +44,7 @@ def main():
     sigma = uncertainty.uncertainty(pos, eigvec[:,first_eig:last_eig], delta)
     writing.write_expvalues(exp_val[first_eig:last_eig], sigma[first_eig:last_eig])
 
-    plotter.plotter(eigv, args.directory)
+    plotter.plotter(num_eigv, args.directory)
 
 
 def _parse_arguments():

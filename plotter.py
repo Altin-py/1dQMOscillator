@@ -43,5 +43,5 @@ def plotter(eigv, directory):
     for xx in range(np.int(firsteigv), np.int(lasteigv)+1):
         plt.plot(wavefunct[:,0],prefactor*wavefunct[:,xx]+energies[xx-np.int(firsteigv)])
 
-    plt.save("plot.png")
+    plt.savefig("plot.png")
 

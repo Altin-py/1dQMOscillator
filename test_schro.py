@@ -5,14 +5,13 @@ Routines to test the reading, interpolate and solver modules.
 """
 import os.path
 import pytest
-import numpy as np
 import reading
 import solver
 import interpolate as interpol
 
 
-ABSOLUTE_TOLERANCE = 1e-10
-RELATIVE_TOLERANCE = 1e-10
+ABSOLUTE_TOLERANCE = 1e-5
+RELATIVE_TOLERANCE = 1e-5
 
 TESTDATADIR = 'testdata'
 
@@ -31,8 +30,8 @@ def get_test_output(testname):
     "Reads the reference ouput for a given test."
     testoutfile_pot = os.path.join(TESTDATADIR, testname + '_pot.out')
     testoutfile_eig = os.path.join(TESTDATADIR, testname + '_eig.out')
-    discr_pot = np.loadtxt(testoutfile_pot)[:,1]
-    eigval = np.loadtxt(testoutfile_eig)
+    discr_pot = reading.read_test_output_pot(testoutfile_pot)
+    eigval = reading.read_test_output_eig(testoutfile_eig)
     return discr_pot, eigval
 
 
@@ -56,8 +55,6 @@ def test_eigval(testname):
     # MAKE SURE BOTH VECTORS ARE COLUMN OR ROW VECTORS
     assert np.allclose(eigval_to_test, eigval_expected,
                        atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
-
-
 
 
 if __name__ == '__main__':
