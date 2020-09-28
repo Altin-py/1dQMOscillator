@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import interpolate
 
+
 def plotter(directory='schroedinger/POT_ASYM/', firsteigv, lasteigv, xmin = -10, xmax = 10, ymin = -10, ymax = 10 ):
     """
     Plots.
