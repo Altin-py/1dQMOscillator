@@ -24,18 +24,25 @@ TESTS = ['finite', 'asymmetric', 'infinite', 'harmonic_cubic',
 def get_test_input(testname):
     "Reads the input for a given test."
     testinfile = os.path.join(TESTDATADIR, testname + '.in')
-    ### aa, bb = io.read_input(testinfile)
-    ### return aa, bb
+    mass, diskr, num_eigv, ansatz, matinpo = reading.reading(testinfile)
+    return mass, diskr, num_eigv, ansatz, matinpo
 
 
 def get_test_output(testname):
     "Reads the reference ouput for a given test."
-    testoutfile = os.path.join(TESTDATADIR, testname + '.out')
-    ### result = io.read_result(testoutfile)
-    ### return result
+    testoutfile_pot = os.path.join(TESTDATADIR, testname + '_pot.out')
+    testoutfile_eig = os.path.join(TESTDATADIR, testname + '_eig.out')
+    discr_pot = np.loadtxt(testoutfile_pot)[:,1]
+    eigval = np.loadtxt(testoutfile_eig)
+    return discr_pot, eigval
 
 
 @pytest.mark.parametrize("testname", TESTS)
+def test_discr_pot(testname):
+    "Tests the interpolation function"
+    mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
+    discr_pot_expected = get_test_output(testname)[0]
+
 
 
 
