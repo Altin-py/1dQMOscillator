@@ -19,7 +19,7 @@ def interpolate(diskr, ansatz, matinpo):
         nothing but savees the plotable data in x,y format
     """
 
-    xdat = np.linspace(np.int(diskr[0]), np.int(diskr[1]), np.(diskr[2]))
+    xdat = np.linspace(np.int(diskr[0]), np.int(diskr[1]), np.int(diskr[2]))
 
     if ansatz == 'linear':
         yinter = interp1d(matinpo[:, 0], matinpo[:, 1], kind='linear')

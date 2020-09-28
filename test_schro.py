@@ -5,6 +5,7 @@ Routines to test the reading, interpolate and solver modules.
 """
 import os.path
 import pytest
+import numpy as np
 import reading
 import solver
 import interpolate as interpol
@@ -45,8 +46,9 @@ def test_discr_pot(testname):
     assert np.allclose(discr_pot_to_test, discr_pot_expected,
                        atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
 
+@pytest.mark.parametrize("testname", TESTS)
 def test_eigval(testname):
-    "Tests the interpolation function"
+    "Tests the solver module"
     mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
     eigval_expected = get_test_output(testname)[1]
     delta = (diskr[1] - diskr[0]) / diskr[2]
