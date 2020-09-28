@@ -8,7 +8,6 @@ import pytest
 import numpy as np
 import reading
 import solver
-import writing
 import interpolate as interpol
 
 
@@ -42,7 +41,21 @@ def test_discr_pot(testname):
     "Tests the interpolation function"
     mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
     discr_pot_expected = get_test_output(testname)[0]
-    discr_pot_to_test =
+    discr_pot_to_test = interpol.interpolate(diskr, ansatz, matinpo)[:,1]
+    # MAKE SURE BOTH VECTORS ARE COLUMN OR ROW VECTORS
+    assert np.allclose(discr_pot_to_test, discr_pot_expected,
+                       atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
+
+def test_eigval(testname):
+    "Tests the interpolation function"
+    mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
+    eigval_expected = get_test_output(testname)[1]
+    delta = (diskr[1] - diskr[0]) / diskr[2]
+    ham = solver.hamiltonian(mass, delta)
+    eigval_to_test = solver.diagonalize(ham)[0]
+    # MAKE SURE BOTH VECTORS ARE COLUMN OR ROW VECTORS
+    assert np.allclose(eigval_to_test, eigval_expected,
+                       atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
 
 
 
