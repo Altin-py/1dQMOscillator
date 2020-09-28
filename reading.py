@@ -8,7 +8,7 @@ file of the interpolated potential.
 import os.path
 import numpy as np
 # import numpy as np
-def reading(directory):
+def reading(file):
     """
     Reads input potentialextracts variables
 
@@ -25,7 +25,6 @@ def reading(directory):
         eigv: first and last eigv
         diskr: Diskrete points used for interpolation
     """
-    file = os.path.join(directory, "schrodinger.inp")
     with open(file) as fp:
         data = fp.read().splitlines()
     mass = data[0]

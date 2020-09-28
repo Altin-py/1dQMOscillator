@@ -23,7 +23,8 @@ def main():
     args = _parse_arguments()
     directory = args.directory
     try:
-        mass, diskr, num_eigv, ansatz, matinpo = reading.reading(args.directory)
+        file = os.path.join(args.directory, "schrodinger.inp")
+        mass, diskr, num_eigv, ansatz, matinpo = reading.reading(file)
     except FileNotFoundError as exc:
         print("Not found a file called '{}' in the folder".format(_INPUT_FILE))
         print("Exception raised: {}".format(exc))
