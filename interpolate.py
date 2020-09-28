@@ -11,9 +11,10 @@ def interpolate(diskr, ansatz, matinpo):
     """
     Function to interpolate the data with chosen nethod
 
-    args:
-        directory where the potential.dat is supposed to be saved and where
-        schrodinger.inp is
+    Args:
+        diskr:
+        ansatz:
+        matinpo:
     return:
         nothing but savees the plotable data in x,y format
     """

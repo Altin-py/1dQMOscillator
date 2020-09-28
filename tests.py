@@ -42,6 +42,7 @@ def test_discr_pot(testname):
     "Tests the interpolation function"
     mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
     discr_pot_expected = get_test_output(testname)[0]
+    discr_pot_to_test =
 
 
 

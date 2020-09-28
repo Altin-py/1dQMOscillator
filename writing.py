@@ -5,6 +5,19 @@ Output for the Schrodinger equation resolution.
 import numpy as np
 
 
+def write_potential(pos, pot, filename="potential.dat"):
+    '''Writes the discretized potential into a file.
+
+    Args:
+        pos: Vector with all the discretized positions (n,)
+        pos: Vector with all the discretized values for the potential (n,)
+        filename: Name of the file where the results should be written to. By
+        default: "potential.dat".
+    '''
+    info = np.column_stack((pos, pot))
+    np.savetxt(filename, info)
+
+
 def write_energies(aa, filename="energies.dat"):
     '''Writes the selected eigenvalues of the Hamiltonian into a file.
 
