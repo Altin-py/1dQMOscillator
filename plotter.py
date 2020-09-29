@@ -24,13 +24,11 @@ _INPUT_FILE4 = 'expvalues.dat'
 def main():
     '''Main driver routine of the visualisation.'''
     args = _parse_arguments()
+
+
     directory = args.directory
     prefactor = args.pref
     eigv = rd.reading(os.path.join(directory,_INPUT_FILE0))[2]
-    xmin = args.xmin
-    xmax = args.xmax
-    ymin = args.ymin
-    ymax = args.ymax
     try:
         potpath = os.path.join(directory, 'potential.dat')
     except FileNotFoundError as exc:
@@ -65,17 +63,38 @@ def main():
 
     plt.figure(figsize=(15, 7))
 
-    plt.ylim(ymin, ymax)
-    plt.xlim(xmin, xmax)
-
 
     plt.plot(potential[:,0],potential[:,1])
 
     for xx in range(np.int(firsteigv), np.int(lasteigv)+1):
         plt.plot(wavefunct[:,0],prefactor*wavefunct[:,xx]+energies[xx-np.int(firsteigv)])
 
-    plt.show()
 
+
+    if args.xmin is None:
+        xmin = plt.xlim()[0]
+    else:
+        xmin = args.xmin
+
+    if args.xmax is None:
+        xmax = plt.xlim()[1]
+    else:
+        xmax = args.xmax
+
+
+    if args.ymin is None:
+        ymin = plt.ylim()[0]
+    else:
+        ymin = args.ymin
+
+    if args.ymax is None:
+        ymax = plt.ylim()[1]
+    else:
+        ymax = args.ymax
+
+    plt.ylim(ymin, ymax)
+    plt.xlim(xmin, xmax)
+    plt.show()
 
 def _parse_arguments():
     parser = argparse.ArgumentParser(description=_DESCRIPTION)
@@ -84,14 +103,14 @@ def _parse_arguments():
     parser.add_argument('-d', '--directory', metavar='DIR', default='.', help=msg)
 
     msg = 'Minimum of plotted x-axis'
-    parser.add_argument('-xmin','-xminimum', type=int, default=-10, help=msg)
+    parser.add_argument('-xmin','-xminimum', type=int, default=None, help=msg)
     msg = 'Maximum of plotted x-axis'
-    parser.add_argument('-xmax','-xmaximum', type=int, default=10, help=msg)
+    parser.add_argument('-xmax','-xmaximum', type=int, default=None, help=msg)
 
     msg = 'Minimum of plotted y-axis'
-    parser.add_argument('-ymin','-yminimum', type=int, default=-10, help=msg)
+    parser.add_argument('-ymin','-yminimum', type=int, default=None, help=msg)
     msg = 'Maximum of plotted y-axis'
-    parser.add_argument('-ymax','-ymaximum', type=int, default=10, help=msg)
+    parser.add_argument('-ymax','-ymaximum', type=int, default=None, help=msg)
 
     msg = 'Scaling prefactor of wavefunctions'
     parser.add_argument('-pref','-prefactor', type=float, default=1.0, help=msg)
@@ -99,7 +118,7 @@ def _parse_arguments():
     args = parser.parse_args()
     return args
 
-    plt.savefig("plot.png")
+   # plt.savefig("plot.png")
 
 if __name__ == '__main__':
     main()
