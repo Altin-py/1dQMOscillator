@@ -60,11 +60,8 @@ def main():
         sys.exit(1)
     expect = np.loadtxt(exppath)[:,0]
     uncertainty = np.loadtxt(exppath)[:,1]
-
     firsteigv = eigv[0]
     lasteigv = eigv[1]
-
-
 
     plt.figure(figsize=(15, 7))
 
@@ -101,6 +98,8 @@ def _parse_arguments():
 
     args = parser.parse_args()
     return args
+
+    plt.savefig("plot.png")
 
 if __name__ == '__main__':
     main()

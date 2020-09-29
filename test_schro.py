@@ -11,8 +11,8 @@ import solver
 import interpolate as interpol
 
 
-ABSOLUTE_TOLERANCE = 1e-10
-RELATIVE_TOLERANCE = 1e-10
+ABSOLUTE_TOLERANCE = 1e-5
+RELATIVE_TOLERANCE = 1e-5
 
 TESTDATADIR = 'testdata'
 
@@ -31,8 +31,8 @@ def get_test_output(testname):
     "Reads the reference ouput for a given test."
     testoutfile_pot = os.path.join(TESTDATADIR, testname + '_pot.out')
     testoutfile_eig = os.path.join(TESTDATADIR, testname + '_eig.out')
-    discr_pot = np.loadtxt(testoutfile_pot)[:,1]
-    eigval = np.loadtxt(testoutfile_eig)
+    discr_pot = reading.read_test_output_pot(testoutfile_pot)
+    eigval = reading.read_test_output_eig(testoutfile_eig)
     return discr_pot, eigval
 
 
@@ -46,8 +46,9 @@ def test_discr_pot(testname):
     assert np.allclose(discr_pot_to_test, discr_pot_expected,
                        atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
 
+@pytest.mark.parametrize("testname", TESTS)
 def test_eigval(testname):
-    "Tests the interpolation function"
+    "Tests the solver module"
     mass, diskr, num_eigv, ansatz, matinpo = get_test_input(testname)
     eigval_expected = get_test_output(testname)[1]
     delta = (diskr[1] - diskr[0]) / diskr[2]
@@ -56,8 +57,6 @@ def test_eigval(testname):
     # MAKE SURE BOTH VECTORS ARE COLUMN OR ROW VECTORS
     assert np.allclose(eigval_to_test, eigval_expected,
                        atol=ABSOLUTE_TOLERANCE, rtol=RELATIVE_TOLERANCE)
-
-
 
 
 if __name__ == '__main__':
