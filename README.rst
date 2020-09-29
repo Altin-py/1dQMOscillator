@@ -16,11 +16,11 @@ of interpolation points and xy declarations and the corresponding xy declaration
 for the potential. Each independent parameter should be in a separate line.
 The input should look like the next example (for a finite potential well)::
 	
-	2.0		# mass
+	2.0		        # mass
 	-2.0 2.0 1999	# xMin xMax nPoint
-	1 3		# first and last eigenvalue in output
-	linear		# interpolation type
-	6		# number of interpolation points and xy declarations
+	1 3		        # first and last eigenvalue in output
+	linear		    # interpolation type
+	6		        # number of interpolation points and xy declarations
 	-2.0	0.0
 	-0.5	0.0
 	-0.5	-10.0
