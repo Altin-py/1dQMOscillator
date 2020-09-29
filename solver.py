@@ -5,19 +5,20 @@ import scipy.linalg as linalg
 import numpy as np
 
 
-def hamiltonian(mass, delta):
+def hamiltonian(mass, delta, file_pot="potential.dat"):
     """Construct the Hamiltonian for a discretized one dimensional
-quandum system. It requires a file ("potential.dat") with the values of the
+quandum system. It requires a file with the values of the
 external potential (second column) for each value of the discretized positions
-(first column).
+(first column). File called "potential.dat" by default.
     Args:
         mass: Mass of the system. Scalar.
         delta: Distance between the discretized points. Scalar.
+        file_pot: Name of the file with the potential. Default: "potential.dat"
 
     Returns:
         ham: Hamiltonian matrix (dim, dim) of the discretized system.
     """
-    pot = np.loadtxt("potential.dat")[:,1]
+    pot = np.loadtxt(file_pot)[:,1]
     dim = pot.shape[0]
     const = 1 / (mass * delta * delta)
     ham = np.zeros((dim, dim))
