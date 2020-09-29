@@ -26,4 +26,7 @@ schroedinger/POT_HARMONISCH_SINGLE/wavefuncs.dat
 schroedinger/POT_UNENDLICH_TIEF/energies.dat
 schroedinger/POT_UNENDLICH_TIEF/expvalues.dat
 schroedinger/POT_UNENDLICH_TIEF/wavefuncs.dat
-
+energies.dat
+expvalues.dat
+potential.dat
+wavefuncs.dat
