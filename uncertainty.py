@@ -53,7 +53,7 @@ def uncertainty(aa, bb, delta):
 
     """
     xx_2 = aa*aa
-    xx_2_exp = expectationval(xx_2, bb, delta)
+    xx_2_exp = expectationval(xx_2, bb, delta)*expectationval(xx_2, bb, delta)
     xx_exp_2 = np.square(expectationval(aa, bb, delta))
     sigma = np.sqrt(xx_2_exp-xx_exp_2)
     return sigma
