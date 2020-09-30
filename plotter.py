@@ -26,9 +26,13 @@ _INPUT_FILE4 = 'expvalues.dat'
 def main():
     '''Main driver routine of the visualisation.'''
     args = _parse_arguments()
+    name = args.title
+
+
     directory = args.directory
     prefactor = args.pref
     eigv = rd.reading(os.path.join(directory,_INPUT_FILE0))[2]
+
     xmin = args.xmin
     xmax = args.xmax
     ymin = args.ymin
@@ -66,24 +70,62 @@ def main():
     uncertainty = np.loadtxt(exppath)[:,1]
 
 
-    firsteigv = eigv[0]
-    lasteigv = eigv[1]
-
+    firsteigv = np.int(eigv[0])
+    lasteigv = np.int(eigv[1])
 
     plt.figure(figsize=(15, 7))
 
-    plt.ylim(ymin, ymax)
-    plt.xlim(xmin, xmax)
+    plt.subplot(1, 2, 1)
+    plt.title(name, fontsize=14)
+    plt.xlabel("x [Bohr]", fontsize=14)
+    plt.ylabel("Energy [Hartree]", fontsize=14)
 
 
     plt.plot(potential[:,0],potential[:,1])
 
-    for xx in range(np.int(firsteigv), np.int(lasteigv)+1):
-        plt.plot(wavefunct[:,0],prefactor*wavefunct[:,xx]+energies[xx-np.int(firsteigv)])
+    for xx in range(firsteigv, lasteigv+1):
+        plt.plot(wavefunct[:,0], prefactor*wavefunct[:, xx]+energies[xx-firsteigv])
 
-    plt.savefig("plot.png")
+    if args.xmin is None:
+        xmin = plt.xlim()[0]
+    else:
+        xmin = np.float(args.xmin)
+
+    if args.xmax is None:
+        xmax = plt.xlim()[1]
+    else:
+        xmax = np.float(args.xmax)
+
+
+    if args.ymin is None:
+        ymin = plt.ylim()[0]
+    else:
+        ymin = np.float(args.ymin)
+
+    if args.ymax is None:
+        ymax = plt.ylim()[1]
+    else:
+        ymax = np.float(args.ymax)
+
+    plt.ylim(ymin, ymax)
+    plt.xlim(xmin, xmax)
+
+    plt.hlines(energies[firsteigv-1:lasteigv], xmin, xmax, color="gray")
+    plt.plot(expect, energies[firsteigv-1:lasteigv], "g+")
+
+    plt.subplot(1, 2, 2)
+    plt.title('sigmax', fontsize=14)
+    plt.xlabel("x [Bohr]", fontsize=14)
+    plt.ylabel("Energy [Hartree]", fontsize=14)
+    xmin = 0
+    xmax = plt.xlim()[1]
+    plt.ylim(ymin, ymax)
+    plt.xlim(xmin, xmax)
+    plt.plot(uncertainty,expect+energies,'b+')
+    plt.hlines(energies[firsteigv-1:lasteigv], xmin, xmax, color="gray")
+
+    plt.savefig(name + ".png")
     plt.show()
-
 
 def _parse_arguments():
     parser = argparse.ArgumentParser(description=_DESCRIPTION)
@@ -91,15 +133,19 @@ def _parse_arguments():
         ' written to (default: .)'
     parser.add_argument('-d', '--directory', metavar='DIR', default='.', help=msg)
 
+    msg = 'State name of the used potential as a string. '
+    parser.add_argument('-t', '--title',default=None, help=msg)
+
+
     msg = 'Minimum of plotted x-axis'
-    parser.add_argument('-xmin','-xminimum', type=int, default=-10, help=msg)
+    parser.add_argument('-xmin','-xminimum', default=None, help=msg)
     msg = 'Maximum of plotted x-axis'
-    parser.add_argument('-xmax','-xmaximum', type=int, default=10, help=msg)
+    parser.add_argument('-xmax','-xmaximum', default=None, help=msg)
 
     msg = 'Minimum of plotted y-axis'
-    parser.add_argument('-ymin','-yminimum', type=int, default=-10, help=msg)
+    parser.add_argument('-ymin','-yminimum', default=None, help=msg)
     msg = 'Maximum of plotted y-axis'
-    parser.add_argument('-ymax','-ymaximum', type=int, default=10, help=msg)
+    parser.add_argument('-ymax','-ymaximum', default=None, help=msg)
 
     msg = 'Scaling prefactor of wavefunctions'
     parser.add_argument('-pref','-prefactor', type=float, default=1.0, help=msg)
@@ -107,7 +153,6 @@ def _parse_arguments():
 
     args = parser.parse_args()
     return args
-
 
 if __name__ == '__main__':
     main()

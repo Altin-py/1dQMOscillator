@@ -6,7 +6,6 @@ reads out all the variables for further access.
 """
 import numpy as np
 
-
 def reading(file):
     """
     Reads input potential and extracts variables
