@@ -59,8 +59,8 @@ def main():
         sys.exit(1)
     expect = np.loadtxt(exppath)[:,0]
     uncertainty = np.loadtxt(exppath)[:,1]
-    firsteigv = eigv[0]
-    lasteigv = eigv[1]
+    firsteigv = np.int(eigv[0])
+    lasteigv = np.int(eigv[1])
 
     plt.figure(figsize=(15, 7))
 
@@ -73,10 +73,8 @@ def main():
 
     plt.plot(potential[:,0],potential[:,1])
 
-    for xx in range(np.int(firsteigv), np.int(lasteigv)+1):
-        plt.plot(wavefunct[:,0],prefactor*wavefunct[:,xx]+energies[xx-np.int(firsteigv)])
-
-
+    for xx in range(firsteigv, lasteigv+1):
+        plt.plot(wavefunct[:,0], prefactor*wavefunct[:, xx]+energies[xx-firsteigv])
 
     if args.xmin is None:
         xmin = plt.xlim()[0]
@@ -102,12 +100,19 @@ def main():
     plt.ylim(ymin, ymax)
     plt.xlim(xmin, xmax)
 
+    plt.hlines(energies[firsteigv-1:lasteigv], xmin, xmax, color="gray")
+    plt.plot(expect, energies[firsteigv-1:lasteigv], "g+")
+
     plt.subplot(1, 2, 2)
     plt.title('sigmax', fontsize=14)
     plt.xlabel("x [Bohr]", fontsize=14)
     plt.ylabel("Energy [Hartree]", fontsize=14)
+    xmin = 0
+    xmax = plt.xlim()[1]
     plt.ylim(ymin, ymax)
+    plt.xlim(xmin, xmax)
     plt.plot(uncertainty,expect+energies,'b+')
+    plt.hlines(energies[firsteigv-1:lasteigv], xmin, xmax, color="gray")
 
     plt.show()
 
