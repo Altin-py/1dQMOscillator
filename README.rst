@@ -10,10 +10,10 @@ Creating the input
 
 Create an input file 'schrodinger.in' containing (everything in atomic units):
 the mass, the interval considered with the number of divisions for its discretization, 
-the first and last eigenvalue that should be included in the output, the type
-of interpolation that should be applied between the discretized points, the number
-of interpolation points and xy declarations and the corresponding xy declarations
-for the potential. Each independent parameter should be in a separate line.
+the first and last eigenvalue that should be included in the output, the type of
+interpolation that should be applied between the discretized points, the number of
+interpolation points and x declarations and the corresponding declarations for the
+potential. Each independent parameter should be in a separate line.
 The input should look like the next example (for a finite potential well)::
 	
 	2.0		        # mass

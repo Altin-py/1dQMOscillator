@@ -2,8 +2,9 @@
 """
 Output for the Schrodinger equation resolution.
 """
-import numpy as np
 import os.path
+import numpy as np
+
 
 
 def write_potential(pos, pot, directory, filename="potential.dat"):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Plots the wavefunctions and the potentials from the written files
+Plots the wavefunctions and the potentials from the output files
 """
 import sys
 import os.path
@@ -11,16 +11,9 @@ import matplotlib.pyplot as plt
 import reading as rd
 
 
-#def plotter(directory='schroedinger/POT_ASYM/', xmin = -10, xmax = 10, ymin = -10, ymax = 10 ):
-def plotter(eigv, directory):
-    """
-    Plots.
-    """
-
-
 _DESCRIPTION = '''Plots the output Data of schrodinger. inp. Requires the used
-directory to contain energies.dat, wavefunct.dat, potential.dat. Additional the
-range of plotting can be determined'''
+directory, which contains energies.dat, wavefunct.dat, potential.dat.
+Additionally, the range of plotting can be determined by command'''
 
 _INPUT_FILE0 = 'schrodinger.inp'
 _INPUT_FILE1 = 'energies.dat'
@@ -39,6 +32,7 @@ def main():
     xmax = args.xmax
     ymin = args.ymin
     ymax = args.ymax
+
     try:
         potpath = os.path.join(directory, 'potential.dat')
     except FileNotFoundError as exc:
@@ -66,6 +60,7 @@ def main():
         print("Not found a file called '{}' in the folder".format(_INPUT_FILE4))
         print("Exception raised: {}".format(exc))
         sys.exit(1)
+
     expect = np.loadtxt(exppath)[:,0]
     uncertainty = np.loadtxt(exppath)[:,1]
 
