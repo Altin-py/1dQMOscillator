@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>API Documentation &#8212; SOSE (Solver Of Schrödinger Equation) 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-reading">
+<span id="reading-module"></span><h2>Reading module<a class="headerlink" href="#module-reading" title="Permalink to this headline">¶</a></h2>
+<p>Given the path of the schrodinger.inp,
+reads out all the variables for further access.</p>
+<dl class="function">
+<dt id="reading.read_test_output_eig">
+<code class="sig-prename descclassname">reading.</code><code class="sig-name descname">read_test_output_eig</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#reading.read_test_output_eig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the output file (reference) for the eigenvalues for the tests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> – path of the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="reading.read_test_output_pot">
+<code class="sig-prename descclassname">reading.</code><code class="sig-name descname">read_test_output_pot</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#reading.read_test_output_pot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the output file (reference) for the potential for the tests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> – path of the file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="reading.reading">
+<code class="sig-prename descclassname">reading.</code><code class="sig-name descname">reading</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#reading.reading" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads input potential and extracts variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> – path of input file, containing the mass, the interval and the number of divisions for the  discretization, the first and last eigenvalues that should be obtained, the type of interpolation that should be applied, the number of interpolation points and x declarations with the corresponding potential values (all separated in different lines).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Mass of the system. Scalar.</p></li>
+<li><p>Vector with all the values for the discretization: the minimum and maximum values of the selected positions interval and the number of points. Shape: (3,)</p></li>
+<li><p>Vector with the first and last chosen eigenvalues. Shape: (2,)</p></li>
+<li><p>Ansatz for the interpolation (method of interpolation)</p></li>
+<li><p>Matrix with the x declarations and corresponding potential values. Shape: (r, 2)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-interpolate">
+<span id="interpolate-module"></span><h2>Interpolate module<a class="headerlink" href="#module-interpolate" title="Permalink to this headline">¶</a></h2>
+<p>Interpolates the potential values from the input.</p>
+<dl class="function">
+<dt id="interpolate.interpolate">
+<code class="sig-prename descclassname">interpolate.</code><code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param">diskr</em>, <em class="sig-param">ansatz</em>, <em class="sig-param">matinpo</em><span class="sig-paren">)</span><a class="headerlink" href="#interpolate.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to interpolate the data with the chosen method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diskr</strong> – Vector with the first and last values of the positions interval to interpolate and the number of points to interpolate. Shape: (3,)</p></li>
+<li><p><strong>ansatz</strong> – String determining the method of interpolation.</p></li>
+<li><p><strong>matinpo</strong> – Matrix with the positions (first column) and potential (second column) reference values. Shape: (r, 2)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(dim, 2)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Matrix with the resulting values of the potential (second column) for each position (first column) Shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-solver">
+<span id="solver-module"></span><h2>Solver module<a class="headerlink" href="#module-solver" title="Permalink to this headline">¶</a></h2>
+<p>Routines for building the Hamiltonian of a discretized one dimensional
+quandum system and for its corresponding diagonalization</p>
+<dl class="function">
+<dt id="solver.diagonalize">
+<code class="sig-prename descclassname">solver.</code><code class="sig-name descname">diagonalize</code><span class="sig-paren">(</span><em class="sig-param">mass</em>, <em class="sig-param">delta</em>, <em class="sig-param">file_pot='potential.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#solver.diagonalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diagonalizes the hamiltonian of a discretized one dimensional quantum
+system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mass</strong> – Mass of the system. Scalar.</p></li>
+<li><p><strong>delta</strong> – Distance between the discretized points. Scalar.</p></li>
+<li><p><strong>file_pot</strong> – Name of the file with the potential. Default: “potential.dat”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Vector (s,) with the unordered eigenvalues of the matrix aa.</p></li>
+<li><p>Matrix (dim, s) whose column eigvec[:,i] correspond to theeigenvector associated to the eigenvalue eigval[i].</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>scipy.linalg.LinAlgError</strong> – if the eigenvalue computation does not converge.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="solver.hamiltonian">
+<code class="sig-prename descclassname">solver.</code><code class="sig-name descname">hamiltonian</code><span class="sig-paren">(</span><em class="sig-param">mass</em>, <em class="sig-param">delta</em>, <em class="sig-param">file_pot='potential.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#solver.hamiltonian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the Hamiltonian for a discretized one dimensional quantum
+system. It requires a file with the values of the external potential
+(second column) for each value of the discretized positions (first
+column). File called “potential.dat” by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mass</strong> – Mass of the system. Scalar.</p></li>
+<li><p><strong>delta</strong> – Distance between the discretized points. Scalar.</p></li>
+<li><p><strong>file_pot</strong> – Name of the file with the potential. Default: “potential.dat”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Hamiltonian matrix (dim, dim) of the discretized system.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-uncertainty">
+<span id="uncertainty-module"></span><h2>Uncertainty module<a class="headerlink" href="#module-uncertainty" title="Permalink to this headline">¶</a></h2>
+<p>Calculates the expectation value of a multiplicative operator in each
+eigenstate of a 1D discretized quantum system and the corresponding
+uncertainty.</p>
+<dl class="function">
+<dt id="uncertainty.expectationval">
+<code class="sig-prename descclassname">uncertainty.</code><code class="sig-name descname">expectationval</code><span class="sig-paren">(</span><em class="sig-param">aa</em>, <em class="sig-param">bb</em>, <em class="sig-param">delta</em><span class="sig-paren">)</span><a class="headerlink" href="#uncertainty.expectationval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the expectation value of the discretized (multiplicative
+operator in each eigenstate of the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong> – Vector of the discretized values of the operator. Shape: (dim,)</p></li>
+<li><p><strong>bb</strong> – Matrix of the eigenstates of the system. Shape: (dim, num_eig)</p></li>
+<li><p><strong>delta</strong> – Distance between the discretized points. Scalar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(num_eig,)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Vector of the expectation values of the operator in each eigenstate. Shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="uncertainty.uncertainty">
+<code class="sig-prename descclassname">uncertainty.</code><code class="sig-name descname">uncertainty</code><span class="sig-paren">(</span><em class="sig-param">aa</em>, <em class="sig-param">bb</em>, <em class="sig-param">delta</em><span class="sig-paren">)</span><a class="headerlink" href="#uncertainty.uncertainty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the uncertainty of an operator in each eigenstate of a 1D
+discretized quantum system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong> – Vector of the discretized values of the operator. Shape: (dim,)</p></li>
+<li><p><strong>bb</strong> – Matrix of the eigenstates of the system. Shape: (dim, num_eig)</p></li>
+<li><p><strong>delta</strong> – Distance between the discretized points. Scalar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(num_eig,)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Vector of the uncertainty values of the operator in each eigenstate, defined as the square root of the expectation value of the squared operator minus the squared expectation value of the operator itself. Shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-writing">
+<span id="writing-module"></span><h2>Writing module<a class="headerlink" href="#module-writing" title="Permalink to this headline">¶</a></h2>
+<p>Output for the Schrodinger equation resolution.</p>
+<dl class="function">
+<dt id="writing.write_energies">
+<code class="sig-prename descclassname">writing.</code><code class="sig-name descname">write_energies</code><span class="sig-paren">(</span><em class="sig-param">aa</em>, <em class="sig-param">directory</em>, <em class="sig-param">filename='energies.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#writing.write_energies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the selected eigenvalues of the Hamiltonian into a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong> – Vector with all the eigenvalues (s,)</p></li>
+<li><p><strong>directory</strong> – Name of the directory where the file should be written</p></li>
+<li><p><strong>filename</strong> – Name of the file where the results should be written to. By default: “energies.dat”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="writing.write_expvalues">
+<code class="sig-prename descclassname">writing.</code><code class="sig-name descname">write_expvalues</code><span class="sig-paren">(</span><em class="sig-param">aa</em>, <em class="sig-param">bb</em>, <em class="sig-param">directory</em>, <em class="sig-param">filename='expvalues.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#writing.write_expvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the expectation values of an operator, together with the
+corresponding uncertainty, for each chosen eigenstate into a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong> – Vector of the expectation values of the operator in each eigenstate. Shape: (s,)</p></li>
+<li><p><strong>bb</strong> – Vector of the uncertainty values of the operator associated with each eigenstate. Shape: (s,)</p></li>
+<li><p><strong>directory</strong> – Name of the directory where the file should be written</p></li>
+<li><p><strong>filename</strong> – Name of the file where the results should be written to.  By default: “expvalues.dat”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="writing.write_potential">
+<code class="sig-prename descclassname">writing.</code><code class="sig-name descname">write_potential</code><span class="sig-paren">(</span><em class="sig-param">pos</em>, <em class="sig-param">pot</em>, <em class="sig-param">directory</em>, <em class="sig-param">filename='potential.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#writing.write_potential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the discretized potential into a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> – Vector with all the discretized positions (n,)</p></li>
+<li><p><strong>pos</strong> – Vector with all the discretized values for the potential (n,)</p></li>
+<li><p><strong>directory</strong> – Name of the directory where the file should be written</p></li>
+<li><p><strong>filename</strong> – Name of the file where the results should be written to. By default: “potential.dat”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="writing.write_wavefuncs">
+<code class="sig-prename descclassname">writing.</code><code class="sig-name descname">write_wavefuncs</code><span class="sig-paren">(</span><em class="sig-param">aa</em>, <em class="sig-param">bb</em>, <em class="sig-param">directory</em>, <em class="sig-param">filename='wavefuncs.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#writing.write_wavefuncs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the selected eigenfunctions of the Hamiltonian into a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aa</strong> – Vector with all the discretized positions. Shape: (n,)</p></li>
+<li><p><strong>bb</strong> – Matrix with all the eigenfuncions at each postion. Shape: (n, s)</p></li>
+<li><p><strong>directory</strong> – Name of the directory where the file should be written</p></li>
+<li><p><strong>filename</strong> – Name of the file where the results should be written to. By default: “eigenfuncs.dat”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-schrodinger">
+<span id="schrodinger"></span><h2>Schrodinger<a class="headerlink" href="#module-schrodinger" title="Permalink to this headline">¶</a></h2>
+<p>Solves Schrödinger equation for a one dimensional time independent potential.</p>
+<dl class="function">
+<dt id="schrodinger.main">
+<code class="sig-prename descclassname">schrodinger.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#schrodinger.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main driver routine.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-plotter">
+<span id="plotter"></span><h2>Plotter<a class="headerlink" href="#module-plotter" title="Permalink to this headline">¶</a></h2>
+<p>Plots the wavefunctions, the potential, the expectation values and its
+uncertainties from the output files.</p>
+<dl class="function">
+<dt id="plotter.main">
+<code class="sig-prename descclassname">plotter.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#plotter.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main driver routine of the visualisation.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">SOSE (Solver Of Schrödinger Equation)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reading.html">Reading module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolate.html">Interpolate module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty.html">Uncertainty module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing.html">Writing module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Altin Shala, Cristina Oballe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -65,25 +65,25 @@ Interpreting the result
 =======================
 
 The result is written into the output files::
-  `potential.dat`: It contains the positions and the corresponding values
+  * `potential.dat`: It contains the positions and the corresponding values
 of the interpolated potential, the file would look as::
 
   -2.000000000000000000e+00 0.000000000000000000e+00
   -1.997997997997998043e+00 0.000000000000000000e+00
 
-  `energies.dat`: It contains the obtained eigenvalues, the file would look
+  * `energies.dat`: It contains the obtained eigenvalues, the file would look
 as::
 
   1.540583630743308230e-01
   6.162330721775809428e-01
 
-  `wavefunctions.dat`: It contains the positions and the corresponding values
+  * `wavefunctions.dat`: It contains the positions and the corresponding values
 of each eigenfunction, the file would look as::
 
   -2.000000000000000000e+00 4.967292090214622824e-05 -9.934571924097187990e-05 1.490182724511837674e-04 -1.986904579788334425e-04 -2.483621532540088942e-04
   -1.997997997997998043e+00 9.934571924129814344e-05 -1.986904579798026650e-04 2.980332357178472162e-04 -3.973730719985991587e-04 -4.967089863605157274e-04
 
-  `expvalues.dat`: It contains the expectation value of the position operator
+  * `expvalues.dat`: It contains the expectation value of the position operator
 and the corresponding values of the uncertainties, the file would look as::
 
   -2.505711814896135333e-14 3.237508297451815314e-02

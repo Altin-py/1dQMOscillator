@@ -11,14 +11,16 @@ def interpolate(diskr, ansatz, matinpo):
     Function to interpolate the data with the chosen method.
 
     Args:
-        diskr: Vector with the first and last values of the positions interval
-        to interpolate and the number of points to interpolate. Shape: (3,)
+        diskr: Vector with the first and last values of the positions """\
+    """interval to interpolate and the number of points to interpolate. """\
+    """Shape: (3,)
         ansatz: String determining the method of interpolation.
-        matinpo: Matrix with the positions (first column) and potential
-        (second column) reference values. Shape: (r, 2)
+        matinpo: Matrix with the positions (first column) and potential """\
+   """(second column) reference values. Shape: (r, 2)
 
-    Returns: Matrix with the resulting values of the potential (second column)
-    for each position (first column). Shape: (dim, 2)
+    Returns:
+        Matrix with the resulting values of the potential (second """\
+    """column) for each position (first column). Shape: (dim, 2)
     """
 
     xdat = np.linspace(np.int(diskr[0]), np.int(diskr[1]), np.int(diskr[2]))

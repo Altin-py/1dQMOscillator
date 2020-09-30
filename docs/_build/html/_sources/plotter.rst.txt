@@ -1,0 +1,6 @@
+********
+Plotter
+********
+
+.. automodule:: plotter
+   :members:

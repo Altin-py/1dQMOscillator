@@ -1,0 +1,6 @@
+************
+Schrodinger
+************
+
+.. automodule:: schrodinger
+   :members:

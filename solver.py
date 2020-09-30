@@ -18,7 +18,7 @@ def hamiltonian(mass, delta, file_pot="potential.dat"):
         file_pot: Name of the file with the potential. Default: "potential.dat"
 
     Returns:
-        ham: Hamiltonian matrix (dim, dim) of the discretized system.
+        Hamiltonian matrix (dim, dim) of the discretized system.
     """
     pot = np.loadtxt(file_pot)[:, 1]
     dim = pot.shape[0]
@@ -44,13 +44,13 @@ def diagonalize(mass, delta, file_pot="potential.dat"):
         file_pot: Name of the file with the potential. Default: "potential.dat"
 
     Returns:
-        eigval: Vector (s,) with the unordered eigenvalues of the matrix aa.
-        eigvec: Matrix (dim, s) whose column eigvec[:,i] correspond to the
-        eigenvector associated to the eigenvalue eigval[i].
+        * Vector (s,) with the unordered eigenvalues of the matrix aa.
+        * Matrix (dim, s) whose column eigvec[:,i] correspond to the"""\
+        """eigenvector associated to the eigenvalue eigval[i].
 
     Raises:
-        scipy.linalg.LinAlgError: if the eigenvalue computation does not
-        converge.
+        scipy.linalg.LinAlgError: if the eigenvalue computation does not """\
+        """converge.
     """
     ham = hamiltonian(mass, delta, file_pot)
     eigval, eigvec = linalg.eigh(ham)

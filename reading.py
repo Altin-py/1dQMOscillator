@@ -12,22 +12,22 @@ def reading(file):
     Reads input potential and extracts variables
 
     Args:
-        file: path of input file, containing the mass, the interval and the
-        number of divisions for the  discretization, the first and last
-        eigenvalues that should be obtained, the type of interpolation that
-        should be applied, the number of interpolation points and x
-        declarations with the corresponding potential values (all separated in
-        different lines).
+        file: path of input file, containing the mass, the interval and """\
+        """the number of divisions for the  discretization, the first and """\
+        """last eigenvalues that should be obtained, the type of """\
+        """interpolation that should be applied, the number of """\
+        """interpolation points and x declarations with the corresponding """\
+        """potential values (all separated in different lines).
 
     Returns:
-        mass: Mass of the system. Scalar.
-        diskr: Vector with all the values for the discretization: the minimum
-        and maximum values of the selected positions interval and the number
-        of points. Shape: (3,)
-        eigv: Vector with the first and last chosen eigenvalues. Shape: (2,)
-        ansatz: Ansatz for the interpolation (method of interpolation)
-        matinpo: Matrix with the x declarations and corresponding potential
-        values. Shape: (r, 2)
+        * Mass of the system. Scalar.
+        * Vector with all the values for the discretization: the """\
+        """minimum and maximum values of the selected positions interval """\
+        """and the number of points. Shape: (3,)
+        * Vector with the first and last chosen eigenvalues. Shape: (2,)
+        * Ansatz for the interpolation (method of interpolation)
+        * Matrix with the x declarations and corresponding """\
+        """potential values. Shape: (r, 2)
     """
     with open(file) as fp:
         data = fp.read().splitlines()
