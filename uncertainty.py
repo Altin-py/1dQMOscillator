@@ -17,8 +17,8 @@ def expectationval(aa, bb, delta):
         delta: Distance between the discretized points. Scalar.
 
     Returns:
-        Vector of the expectation values of the operator in each """\
-        """eigenstate. Shape: (num_eig,)
+        Vector (num_eig,) of the expectation values of the operator in """\
+        """each eigenstate.
     """
     num_eig = bb.shape[1]
     dim = bb.shape[0]
@@ -42,10 +42,10 @@ def uncertainty(aa, bb, delta):
         delta: Distance between the discretized points. Scalar.
 
     Returns:
-        Vector of the uncertainty values of the operator in each """\
-     """eigenstate, defined as the square root of the expectation value of """\
-     """the squared operator minus the squared expectation value of the """\
-     """operator itself. Shape: (num_eig,)
+        Vector (num_eig,) of the uncertainty values of the operator in """\
+     """each eigenstate, defined as the square root of the expectation """\
+     """value of the squared operator minus the squared expectation value """\
+     """ of the operator itself. Shape:
     """
     xx_2 = aa*aa
     xx_2_exp = expectationval(xx_2, bb, delta)*expectationval(xx_2, bb, delta)

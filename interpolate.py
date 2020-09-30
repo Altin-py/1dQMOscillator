@@ -19,8 +19,8 @@ def interpolate(diskr, ansatz, matinpo):
    """(second column) reference values. Shape: (r, 2)
 
     Returns:
-        Matrix with the resulting values of the potential (second """\
-    """column) for each position (first column). Shape: (dim, 2)
+        Matrix (dim, 2) with the resulting values of the potential (second """\
+    """column) for each position (first column).
     """
 
     xdat = np.linspace(np.int(diskr[0]), np.int(diskr[1]), np.int(diskr[2]))
