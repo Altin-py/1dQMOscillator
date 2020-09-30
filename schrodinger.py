@@ -11,7 +11,6 @@ import uncertainty
 import writing
 import interpolate as interpol
 import numpy as np
-import plotter
 
 _DESCRIPTION = '''Solves the Schrödinger equation for a discretized one
 dimensional quantum system. It requires an input file "schrodinger.inp",
@@ -22,8 +21,9 @@ _INPUT_FILE = 'schrodinger.inp'
 def main():
     '''Main driver routine.'''
     args = _parse_arguments()
+    direc = args.directory
     try:
-        file = os.path.join(args.directory, "schrodinger.inp")
+        file = os.path.join(direc, "schrodinger.inp")
         mass, diskr, num_eigv, ansatz, matinpo = reading.reading(file)
     except FileNotFoundError as exc:
         print("Not found a file called '{}' in the folder".format(_INPUT_FILE))
@@ -32,17 +32,26 @@ def main():
 
     pot = interpol.interpolate(diskr, ansatz, matinpo)[:,1]
     pos = interpol.interpolate(diskr, ansatz, matinpo)[:,0]
-    writing.write_potential(pos, pot)
+
+    writing.write_potential(pos, pot, direc)
+
     delta = (diskr[1] - diskr[0]) / diskr[2]
+
     first_eig = np.int(num_eigv[0]-1)
     last_eig = np.int(num_eigv[1])
+
     ham = solver.hamiltonian(mass, delta)
     eigval, eigvec = solver.diagonalize(ham)
-    writing.write_energies(eigval[first_eig:last_eig])
-    writing.write_wavefuncs(pos, eigvec[:,first_eig:last_eig])
-    exp_val = uncertainty.expectationval(pos, eigvec[:,first_eig:last_eig], delta)
-    sigma = uncertainty.uncertainty(pos, eigvec[:,first_eig:last_eig], delta)
-    writing.write_expvalues(exp_val[first_eig:last_eig], sigma[first_eig:last_eig])
+
+    exp_val = uncertainty.expectationval(pos, eigvec[:, first_eig : last_eig],
+                                         delta)
+    sigma = uncertainty.uncertainty(pos, eigvec[:, first_eig : last_eig],
+                                    delta)
+
+    writing.write_energies(eigval[first_eig : last_eig], direc)
+    writing.write_wavefuncs(pos, eigvec[:, first_eig : last_eig], direc)
+    writing.write_expvalues(exp_val[first_eig : last_eig],
+                            sigma[first_eig : last_eig], direc)
 
 
 
