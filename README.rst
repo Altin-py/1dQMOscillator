@@ -40,7 +40,7 @@ Running the program
 ===================
 
 Execute the `schrodinger.py` script in the folder with the input file 
-`schrodinger.in`::
+`schrodinger.inp`::
 
   schrodinger.py
 
@@ -59,6 +59,11 @@ folder where it has been executed. Or, alternatively, in the folder
 specified using the ``-d`` option::
 
   plotter.py -d somedir
+
+`plotter.py` allows also to determine from the console more parameters of
+the plot::
+
+  plotter.py -t title -xmin num -xmax num -ymin num -ymax num -pref num 
 
 
 Interpreting the result
