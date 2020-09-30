@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Plots the wavefunctions and the potentials from the output files
+Plots the wavefunctions, the potential, the expectation values and its
+uncertainties from the output files.
 """
 import sys
 import os.path
@@ -11,7 +12,7 @@ import matplotlib.pyplot as plt
 import reading as rd
 
 
-_DESCRIPTION = '''Plots the output Data of schrodinger. inp. Requires the used
+_DESCRIPTION = '''Plots the output data of schrodinger. inp. Requires the used
 directory, which contains energies.dat, wavefunct.dat, potential.dat.
 Additionally, the range of plotting can be determined by command'''
 
