@@ -51,8 +51,10 @@ def main():
     first_eig = np.int(num_eigv[0]-1)
     last_eig = np.int(num_eigv[1])
 
+    file1 = os.path.join(direc,"potential.dat")
+
     try:
-        eigval, eigvec = solver.diagonalize(mass, delta)
+        eigval, eigvec = solver.diagonalize(mass, delta, file1)
     except linalg.LinAlgError as exc:
         print("The eigenvalue computation does not converge.")
         print("Exception raised: {}".format(exc))

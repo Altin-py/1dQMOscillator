@@ -123,8 +123,10 @@ def main():
     plt.xlim(xmin, xmax)
     plt.plot(uncertainty,expect+energies,'b+')
     plt.hlines(energies[firsteigv-1:lasteigv], xmin, xmax, color="gray")
-
-    plt.savefig(name + ".png")
+    if name is None:
+        print("Please give a title by using -t")
+    else:
+        plt.savefig(name + ".png")
     plt.show()
 
 def _parse_arguments():
